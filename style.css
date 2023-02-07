@@ -1,0 +1,15 @@
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.card {
+  width: 200px;
+  height: 300px;
+  margin: 10px;
+}
+
+.card h1 {
+  text-align: center;
+}

@@ -17,20 +17,40 @@
 // let btn = document.querySelector('.btn');
 // btn.addEventListener('click', clickCall )
 
-let readApi = async ()=>{
-  let postArea = document.querySelector('.posts');
-  postArea.innerHTML = 'Carregando...';
-  let req = await fetch('https://jsonplaceholder.typicode.com/posts');
-  let content = await req.json()
+// let readApi = async ()=>{
+//   let postArea = document.querySelector('.posts');
+//   postArea.innerHTML = 'Carregando...';
+//   let req = await fetch('https://jsonplaceholder.typicode.com/posts');
+//   let content = await req.json()
+
+//   if(content.length > 0){
+//     postArea.innerHTML = '';
+//     for(let i in content){
+//       let postHtml = `<div><h1>${content[i].title}</h1>${content[i].body} <hr/></div>`
+//       postArea.innerHTML += postHtml;
+//     }
+//   }else{
+//     postArea.innerHTML = 'Nenhum post para ser adicionado.'
+//   }
+// };
+// readApi();
+
+const readPost = async ()=>{
+  let postArea = document.querySelector('.posts')
+  postArea.innerHTML = 'Loading...'
+  const req = await fetch('https://jsonplaceholder.typicode.com/posts')
+  let content = await req.json();
 
   if(content.length > 0){
     postArea.innerHTML = '';
+
     for(let i in content){
-      let postHtml = `<div><h1>${content[i].title}</h1>${content[i].body} <hr/></div>`
+      let postHtml = `<div class='card'><h1>${content[i].title}</h1> ${content[i].body}<hr/></div>`
       postArea.innerHTML += postHtml;
     }
+   
   }else{
-    postArea.innerHTML = 'Nenhum post para ser adicionado.'
+    postArea.innerHTML = 'Anyone posts'
   }
-};
-readApi();
+}
+readPost()
