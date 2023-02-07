@@ -1,40 +1,3 @@
-// https://jsonplaceholder.typicode.com/posts
-
-// // function clickCall(){
-// //   fetch('https://jsonplaceholder.typicode.com/posts').then((response)=>{
-// //     return response.json();
-// //   }).then((json)=>{
-// //     console.log(json[0].title)
-// //   })
-// // }
-
-// let clickCall = async ()=>{
-//   let response = await fetch('https://jsonplaceholder.typicode.com/posts');
-//   let json = await response.json();
-//   console.log(json[0].title)
-// }
-
-// let btn = document.querySelector('.btn');
-// btn.addEventListener('click', clickCall )
-
-// let readApi = async ()=>{
-//   let postArea = document.querySelector('.posts');
-//   postArea.innerHTML = 'Carregando...';
-//   let req = await fetch('https://jsonplaceholder.typicode.com/posts');
-//   let content = await req.json()
-
-//   if(content.length > 0){
-//     postArea.innerHTML = '';
-//     for(let i in content){
-//       let postHtml = `<div><h1>${content[i].title}</h1>${content[i].body} <hr/></div>`
-//       postArea.innerHTML += postHtml;
-//     }
-//   }else{
-//     postArea.innerHTML = 'Nenhum post para ser adicionado.'
-//   }
-// };
-// readApi();
-
 const readPost = async ()=>{
   let postArea = document.querySelector('.posts')
   postArea.innerHTML = 'Loading...'
@@ -53,4 +16,35 @@ const readPost = async ()=>{
     postArea.innerHTML = 'Anyone posts'
   }
 }
+async function addNewPost(title, body){
+  await fetch(
+    'https://jsonplaceholder.typicode.com/posts',
+    {
+      method: 'POST',
+      headers : {
+        'content-type' : 'application/json'
+      },
+      body: JSON.stringify({
+        title, 
+        body,
+        userId: 2 
+      })
+    }
+  )
+  document.querySelector('#titleField').value = '';
+  document.querySelector('#bodyField').value = '';
+
+  readPost();
+}
+document.querySelector('#inserirButton').addEventListener('click', ()=>{
+
+  let title = document.querySelector('#titleField').value;
+  let body = document.querySelector('#bodyField').value;
+
+  if(title && body){
+    addNewPost(title, body)
+  }else{
+    alert('Preencha todos os campos.')
+  }
+})
 readPost()
